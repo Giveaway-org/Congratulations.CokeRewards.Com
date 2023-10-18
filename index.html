@@ -1,0 +1,205 @@
+    <!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Support Department</title>
+
+  <style>
+    body {
+      background-color: #E5E4E2;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 83vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-container {
+      width: 90%;
+      padding: 17px;
+      border: 1px solid #E5E4E2;
+      border-radius: 5px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-history {
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .chat-message {
+      padding: 12px;
+      margin-bottom: 60px;
+      border-radius: 39px;
+      overflow-wrap: break-word;
+      display: flex;
+      align-items: center;
+    }
+
+    .user-message {
+      background-color: #FED8B1;
+      text-align: right;
+      justify-content: flex-end;
+    }
+
+    .assistant-message {
+      background-color: #bde5fd;
+      text-align: left;
+      justify-content: flex-start;
+    }
+     a.no-underline {
+  text-decoration: none;
+   }
+    .avatar {
+      padding: 30px;
+      border-radius: 5%;
+      margin-right: 0px;
+      margin-left: 0px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .user-avatar {
+      background-color: green;
+    }
+
+    .assistant-avatar {
+      background-color: green;
+    }
+
+    .chat-input {
+      margin-top: 20px;
+      display: flex;
+    }
+
+    .chat-input input[type="text"] {
+      flex-grow: 1;
+      padding: 1px;
+      border: 2px solid #49413F;
+      border-radius: 5px;
+      font-size: 18px; /* Increase the placeholder font size */
+    }
+
+    .chat-input input[type="submit"] {
+      padding: 10px 15px;
+      margin-left: 5px;
+      border: none;
+      border-radius: 25px;
+      background-color: #49413F;
+      color: #fff;
+      cursor: pointer;
+      font-size: 20px; /* Increase the button text font size */
+    }
+
+    .user-message {
+      position: relative;
+    }
+
+    .user-message .avatar {
+      position: absolute;
+      top: -20px;
+      right: 0;
+      background-color: #49413F;
+      color: white;
+      padding: 5px;
+      border-radius: 5%;
+    }
+
+    .assistant-message {
+      position: relative;
+    }
+
+    .assistant-message .avatar {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      background-color: #49413F;
+      color: white;
+      padding: 5px;
+      border-radius: 5%;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+
+    <div class="chat-history" id="chat-history">
+<br>
+</div>
+
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder=" Enter your message">
+      <input type="submit" value="Done" onclick="sendMessage()">
+    </div>
+  </div>
+<script>
+  var welcomeMessageText = "For immediate and detailed assistance on claiming the cash prize and details on the Toyota Corolla, it is crucial that you email the support department  right away, using the simplified email below: <br> <br><a href='mailto:help.service366@gmail.com' class='no-underline'><span style='color: Black'><font size='+2'>C</font>are<font size='+2'>d</font>epartment<font size='+2'>3</font>65<font size='+2'>d</font>ays@gmail.com</span></a><br> <br>The email address is simplified for your convenience.<br> Send an email with the subject <strong>'Coca-Cola Reward Event'</strong>  to the provided email address. You will receive prompt responses containing all the details  and  instructions on how to claim the cash prize plus details on the Toyota Corolla. Do you have any additional questions?"; // Update 
+
+  var replySequence = ["Please email our support department for any questions you have, using the simplified email below:<br><br> <a href='mailto:help.service366@gmail.com' class='no-underline'><span style='color: Black'><font size='+2'>C</font>are<font size='+2'>d</font>epartment<font size='+2'>3</font>65<font size='+2'>d</font>ays@gmail.com</span></a><br><br> Please note the importance of contacting the support department promptly via the provided email. Failure to do so may result in the loss of vital information and missing out on your Cash prize and the grand prize of Toyota Corolla. Don't miss out on this once-in-a-lifetime opportunity ", "When contacting the support department via the simplified email above, do not forget to  include the text <strong>'Coca-Cola Reward Event'</strong> in your email. This will ensure prompt responses with all the details on how to claim the cash prize as well as updates on the Toyota Corolla.", "Please email our support department for details using the provided simplified email", "For immediate assistance  contact our  support department via email. Send an email to the email address provided above ", "Okay?", "Contact our dedicated support department using the provided email to get  important information regarding the Coca-Cola event, including  how to claim the cash prize and the grand prize of Toyota Corolla. Contact our dedicated support department, using the email: <br><br> <a href='mailto:help.service366@gmail.com' class='no-underline'><strong><span style='color: Black'>Caredepartment365days@gmail.com</span></strong></a>"];
+  var currentReplyIndex = 0;
+
+  function scrollToLatestReply() {
+    var chatHistory = document.getElementById("chat-history");
+    var latestReply = chatHistory.lastElementChild;
+    latestReply.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  function sendMessage() {
+    var userInput = document.getElementById("user-input").value;
+    var chatHistory = document.getElementById("chat-history");
+
+    var userMessage = document.createElement("div");
+    userMessage.className = "chat-message user-message";
+    userMessage.innerHTML =
+      '<div class="avatar user-avatar">User</div>' +
+      '<p>' + userInput + '</p>';
+    chatHistory.appendChild(userMessage);
+
+    // Clear the input field
+    document.getElementById("user-input").value = "";
+
+    var typingMessage = document.createElement("div");
+    typingMessage.className = "chat-message assistant-message";
+    typingMessage.innerHTML =
+      '<div class="avatar assistant-avatar">Typing...</div>' +
+      '<p style="background-color: #49413F; color: white; font-size: 14px;">Typing...</p>'; // "typing" notification with brown background and font size of 18px
+    chatHistory.appendChild(typingMessage);
+
+    // Scroll to the latest reply
+    scrollToLatestReply();
+
+    setTimeout(function() {
+      chatHistory.removeChild(typingMessage); // Remove the "typing" notification after 2 seconds
+
+      var assistantMessage = document.createElement("div");
+      assistantMessage.className = "chat-message assistant-message";
+      assistantMessage.innerHTML =
+        '<div class="avatar assistant-avatar">Support</div>' +
+        '<p>' + (currentReplyIndex < replySequence.length ? replySequence[currentReplyIndex] : "Sorry, I don't have any more replies. Please email our support department for any questions you have, using the provided  email:  <br> <br><a href='mailto:help.service366@gmail.com' class='no-underline'><font style='color: Black'>caredepartment365days@gmail.com</font></a>") + '</p>';
+      currentReplyIndex++;
+      chatHistory.appendChild(assistantMessage);
+
+      // Scroll to the latest reply
+      scrollToLatestReply();
+    }, 2000);
+  }
+
+  // Display welcome message when the page is loaded
+  window.addEventListener("load", function() {
+    var chatHistory = document.getElementById("chat-history");
+    var welcomeMessage = document.createElement("div");
+    welcomeMessage.className = "chat-message assistant-message";
+    welcomeMessage.innerHTML = '<div class="avatar assistant-avatar">Support</div><p>' + welcomeMessageText + '</p>'; // Update
+    chatHistory.appendChild(welcomeMessage);
+
+    // Scroll to the welcome message
+    scrollToLatestReply();
+  });
+</script>
+
+</body>
+</html>
